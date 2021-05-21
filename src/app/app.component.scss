@@ -1,0 +1,17 @@
+$my-variable-name: "red";
+
+div {
+    color: cadetblue;
+}
+
+.custom1 {
+    font-weight: bold;
+}
+
+.custom{
+    color: $my-variable-name;
+}
+
+.app-comp {
+    font-size: 24px;
+}
