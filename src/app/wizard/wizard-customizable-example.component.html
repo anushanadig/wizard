@@ -1,119 +1,150 @@
-<button fd-button (click)="enterFullscreenExample()">
+<!-- <button fd-button (click)="enterFullscreenExample()">
     Click to open full screen
-  </button>
-  
-  <div cdkScrollable class="docs-wizard-example-overlay" #overlay>
-    <ng-container *ngIf="fullscreen">
+</button> -->
+
+
+<div cdkScrollable class="docs-wizard-example-overlay" #overlay>
+  <ng-container *ngIf="fullscreen">
       <div class="docs-wizard-example-overlay-content">
-        <div class="docs-wizard-example-button">
-          <button fd-button (click)="exitFullscreenExample($event)">
-            Exit Example
-          </button>
-        </div>
-  
-        <!-- The Wizard -->
-        <fd-wizard [appendToWizard]="false">
-          <fd-wizard-navigation>
-            <ul fd-wizard-progress-bar size="sm">
-              <li
-                fd-wizard-step
-                [status]="step1status"
-                (statusChange)="statusChanged(1, $event)"
-                label="Step 1: One Line"
-              >
-                <fd-wizard-step-indicator
-                  glyph="accept"
-                ></fd-wizard-step-indicator>
-                <fd-wizard-content size="md" contentBackground="solid">
-                  This wizard content has a 'solid' background and padding set
-                  with the size input.
-                  <fd-wizard-next-step>
-                    <button
-                      fd-button
-                      [compact]="true"
-                      fdType="emphasized"
-                      (click)="enableStep1a()"
-                    >
-                      Enable step 1.1
-                    </button>
-                  </fd-wizard-next-step>
-                  <fd-wizard-next-step>
-                    <button
-                      fd-button
-                      [compact]="true"
-                      fdType="emphasized"
-                      (click)="goToStep(2)"
-                    >
-                      Go to Step 2
-                    </button>
-                  </fd-wizard-next-step>
-                </fd-wizard-content>
-              </li>
-              <li
-                fd-wizard-step
-                [status]="step1aStatus"
-                (statusChange)="statusChanged(1.1, $event)"
-                label="Step 1.1a"
-                *ngIf="step1aEnabled"
-              >
-                <fd-wizard-step-indicator>1.1</fd-wizard-step-indicator>
-                <fd-wizard-content size="md">
-                  Wizard Content for step 1.1
-                  <fd-wizard-next-step>
-                    <button
-                      fd-button
-                      [compact]="true"
-                      fdType="emphasized"
-                      (click)="goToStep(2)"
-                    >
-                      Go to Step 2
-                    </button>
-                  </fd-wizard-next-step>
-                </fd-wizard-content>
-              </li>
-              <li
-                fd-wizard-step
-                [status]="step2status"
-                (statusChange)="statusChanged(2, $event)"
-                label="Step 2: Another Step"
-              >
-                <fd-wizard-step-indicator>2</fd-wizard-step-indicator>
-                <fd-wizard-content size="md">
-                  Wizard Content for step 2
-                  <fd-wizard-next-step>
-                    <button
-                      fd-button
-                      [compact]="true"
-                      fdType="emphasized"
-                      (click)="goToStep(3)"
-                    >
-                      Go to Step 3
-                    </button>
-                  </fd-wizard-next-step>
-                </fd-wizard-content>
-              </li>
-              <li
-                fd-wizard-step
-                [status]="step3status"
-                (statusChange)="statusChanged(3, $event)"
-                label="Step 3: One line truncates"
-                optionalText="(Optional)"
-              >
-                <fd-wizard-step-indicator>3</fd-wizard-step-indicator>
-                <fd-wizard-content size="md">
-                  Wizard Content for step 3
-                </fd-wizard-content>
-              </li>
-            </ul>
-          </fd-wizard-navigation>
-          <div fd-bar barDesign="footer">
-            <div fd-bar-right>
-              <fd-button-bar label="Save"></fd-button-bar>
-              <fd-button-bar label="Cancel"></fd-button-bar>
-            </div>
+          <div class="docs-wizard-example-button">
+              <button fd-button (click)="exitFullscreenExample($event)">
+                  Exit Example
+              </button>
           </div>
-        </fd-wizard>
+
+          <!-- The Wizard -->
+
+
       </div>
-    </ng-container>
-  </div>
-  
+  </ng-container>
+</div>
+
+<ng-template let-dialog let-dialogConfig="dialogConfig" #confirmationDialog>
+  <fd-dialog [dialogConfig]="dialogConfig" [dialogRef]="dialog" class="fd-wizard-example">
+      <fd-dialog-header>
+          <h2 fd-title headerSize="2">Checkout</h2>
+      </fd-dialog-header>
+      <fd-dialog-body>
+          <fd-wizard [appendToWizard]="false" #wizard>
+              <fd-wizard-navigation>
+                  <ul fd-wizard-progress-bar size="sm">
+                      <li fd-wizard-step [status]="step1status" (statusChange)="statusChanged(1, $event)"
+                          label="Step 1: One Line">
+                          <fd-wizard-step-indicator glyph="accept"></fd-wizard-step-indicator>
+                          <fd-wizard-content size="md" contentBackground="solid">
+
+                              This wizard content has a 'solid' background and padding set
+                              with the size input.
+                              <fd-wizard-next-step>
+                                  <button fd-button [compact]="true" fdType="emphasized" (click)="enableStep1a()">
+                                      Enable step 1.1
+                                  </button>
+                              </fd-wizard-next-step>
+                              <fd-wizard-next-step>
+                                  <button fd-button [compact]="true" fdType="emphasized" (click)="goToStep(2)">
+                                      Go to Step 2
+                                  </button>
+                              </fd-wizard-next-step>
+                          </fd-wizard-content>
+                      </li>
+                      <li fd-wizard-step [status]="step1aStatus" (statusChange)="statusChanged(1.1, $event)"
+                          label="Step 1.1a" *ngIf="step1aEnabled">
+                          <fd-wizard-step-indicator>1.1</fd-wizard-step-indicator>
+                          <fd-wizard-content size="md">
+                              <!-- <div *ngIf="step1aStatus == 'current'"> -->
+                                  Wizard Content for step 1.1 {{step1aStatus}} {{step2status}}
+                                  <fd-wizard-next-step>
+                                      <button fd-button [compact]="true" fdType="emphasized" (click)="goToStep(2)">
+                                          Go to Step 2
+                                      </button>
+                                      <div>
+                                          Sed fermentum, mi et tristique ullamcorper, sapien sapien faucibus sem, quis pretium
+                                  nibh lorem malesuada diam. Nulla quis arcu aliquet, feugiat massa semper, volutpat
+                                  diam. Nam vitae ante posuere, molestie neque sit amet, dapibus velit. Maecenas
+                                  eleifend tempor lorem. Mauris vitae elementum mi, sed eleifend ligula. Nulla tempor
+                                  vulputate dolor, nec dignissim quam convallis ut. Praesent vitae commodo felis, ut
+                                  iaculis felis. Fusce quis eleifend sapien, eget facilisis nibh. Suspendisse est
+                                  velit, scelerisque ut commodo eget, dignissim quis metus. Cras faucibus consequat
+                                  gravida. Curabitur vitae quam felis. Phasellus ac leo eleifend, commodo tortor et,
+                                  varius quam. Aliquam erat volutpatSed fermentum, mi et tristique ullamcorper, sapien sapien faucibus sem, quis pretium
+                                  nibh lorem malesuada diam. Nulla quis arcu aliquet, feugiat massa semper, volutpat
+                                  diam. Nam vitae ante posuere, molestie neque sit amet, dapibus velit. Maecenas
+                                  eleifend tempor lorem. Mauris vitae elementum mi, sed eleifend ligula. Nulla tempor
+                                  vulputate dolor, nec dignissim quam convallis ut. Praesent vitae commodo felis, ut
+                                  iaculis felis. Fusce quis eleifend sapien, eget facilisis nibh. Suspendisse est
+                                  velit, scelerisque ut commodo eget, dignissim quis metus. Cras faucibus consequat
+                                  gravida. Curabitur vitae quam felis. Phasellus ac leo eleifend, commodo tortor et,
+                                  varius quam. Aliquam erat volutpatSed fermentum, mi et tristique ullamcorper, sapien sapien faucibus sem, quis pretium
+                                  nibh lorem malesuada diam. Nulla quis arcu aliquet, feugiat massa semper, volutpat
+                                  diam. Nam vitae ante posuere, molestie neque sit amet, dapibus velit. Maecenas
+                                  eleifend tempor lorem. Mauris vitae elementum mi, sed eleifend ligula. Nulla tempor
+                                  vulputate dolor, nec dignissim quam convallis ut. Praesent vitae commodo felis, ut
+                                  iaculis felis. Fusce quis eleifend sapien, eget facilisis nibh. Suspendisse est
+                                  velit, scelerisque ut commodo eget, dignissim quis metus. Cras faucibus consequat
+                                  gravida. Curabitur vitae quam felis. Phasellus ac leo eleifend, commodo tortor et,
+                                  varius quam. Aliquam erat volutpat
+                                  Sed fermentum, mi et tristique ullamcorper, sapien sapien faucibus sem, quis pretium
+                                  nibh lorem malesuada diam. Nulla quis arcu aliquet, feugiat massa semper, volutpat
+                                  diam. Nam vitae ante posuere, molestie neque sit amet, dapibus velit. Maecenas
+                                  eleifend tempor lorem. Mauris vitae elementum mi, sed eleifend ligula. Nulla tempor
+                                  vulputate dolor, nec dignissim quam convallis ut. Praesent vitae commodo felis, ut
+                                  iaculis felis. Fusce quis eleifend sapien, eget facilisis nibh. Suspendisse est
+                                  velit, scelerisque ut commodo eget, dignissim quis metus. Cras faucibus consequat
+                                  gravida. Curabitur vitae quam felis. Phasellus ac leo eleifend, commodo tortor et,
+                                  varius quam. Aliquam erat volutpat
+                                  Sed fermentum, mi et tristique ullamcorper, sapien sapien faucibus sem, quis pretium
+                                  nibh lorem malesuada diam. Nulla quis arcu aliquet, feugiat massa semper, volutpat
+                                  diam. Nam vitae ante posuere, molestie neque sit amet, dapibus velit. Maecenas
+                                  eleifend tempor lorem. Mauris vitae elementum mi, sed eleifend ligula. Nulla tempor
+                                  vulputate dolor, nec dignissim quam convallis ut. Praesent vitae commodo felis, ut
+                                  iaculis felis. Fusce quis eleifend sapien, eget facilisis nibh. Suspendisse est
+                                  velit, scelerisque ut commodo eget, dignissim quis metus. Cras faucibus consequat
+                                  gravida. Curabitur vitae quam felis. Phasellus ac leo eleifend, commodo tortor et,
+                                  varius quam. Aliquam erat volutpat
+                                      </div>
+                                  </fd-wizard-next-step>
+                              <!-- </div> -->
+                              <!-- <div *ngIf="step2status === 'current'">
+                                  Wizard Content for step 2 {{step2status}}
+                                  <fd-wizard-next-step>
+                                      <button fd-button [compact]="true" fdType="emphasized" (click)="goToStep(3)">
+                                          Go to Step 3
+                                      </button>
+                                  </fd-wizard-next-step>
+                              </div> -->
+                          </fd-wizard-content>
+                      </li>
+                      <li fd-wizard-step [status]="step2status" (statusChange)="statusChanged(2, $event)"
+                          label="Step 2: Another Step">
+                          <fd-wizard-step-indicator>2</fd-wizard-step-indicator>
+                          <fd-wizard-content size="md">
+                              Wizard Content for step 2
+                              <fd-wizard-next-step>
+                                  <button fd-button [compact]="true" fdType="emphasized" (click)="goToStep(3)">
+                                      Go to Step 3
+                                  </button>
+                              </fd-wizard-next-step>
+                          </fd-wizard-content>
+                      </li>
+                      <li fd-wizard-step [status]="step3status" (statusChange)="statusChanged(3, $event)"
+                          label="Step 3: One line truncates" optionalText="(Optional)">
+                          <fd-wizard-step-indicator>3</fd-wizard-step-indicator>
+                          <fd-wizard-content size="md">
+                              Wizard Content for step 3
+                          </fd-wizard-content>
+                      </li>
+                  </ul>
+              </fd-wizard-navigation>
+              <div fd-bar barDesign="footer">
+                  <div fd-bar-right>
+                      <fd-button-bar label="Save"></fd-button-bar>
+                      <fd-button-bar label="Cancel"></fd-button-bar>
+                  </div>
+              </div>
+          </fd-wizard>
+      </fd-dialog-body>
+  </fd-dialog>
+</ng-template>
+
+
+<button fd-button label="Open Wizard in Dialog" (click)="openDialog(confirmationDialog)"></button>
